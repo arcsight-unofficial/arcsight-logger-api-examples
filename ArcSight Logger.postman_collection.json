@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "9eeccc49-3de5-4f25-88f5-3aa8916e26bc",
+		"name": "ArcSight Logger",
+		"description": "This is a collection of all currently available API calls for the REST API that exists on the MicroFocus ArcSight Logger.\n\nFor support on this product, please contact your support representative or reach out to the community on:\nhttps://community.softwaregrp.com/t5/ArcSight/ct-p/arcsight\n\nIf you are having troubles with this Collection or if something do not work, you are also free to create a issue or a pull request on the github located here:\nURL\n\nTo begin, please fill in the details under the Variables tab in this section.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LoginServices",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6ec33c7-d367-40cf-83d1-c32a3a8dd978",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.globals.set(\"authToken\", jsonData[\"log.loginResponse\"][\"log.return\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "login",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/core-service/rest/LoginService/login",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"core-service",
+								"rest",
+								"LoginService",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6ec33c7-d367-40cf-83d1-c32a3a8dd978",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "authToken",
+									"value": "{{authToken}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/core-service/rest/LoginService/logout",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"core-service",
+								"rest",
+								"LoginService",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SearchServices",
+			"item": [
+				{
+					"name": "chart_data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\": \"{{authToken}}\",\r\n    \"length\": 100,\r\n    \"offset\": 0\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/chart_data",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"chart_data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "close",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\":\"{{authToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/close",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "drilldown",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\":\"{{authToken}}\",\r\n    \"end_time\":\"2018-10-26T09:00:00.000Z\",\r\n    \"start_time\":\"2018-10-26T09:00:00.000Z\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/drilldown",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"drilldown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "events",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\": \"{{authToken}}\",\r\n    \"dir\": \"forward\",\r\n    \"length\": 1000,\r\n    \"offset\": 0\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/events",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "histogram",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\":\"{{authToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/histogram",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"histogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "raw_events",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100002,\r\n    \"user_session_id\":\"{{authToken}}\",\r\n    \"row_ids\": [\"CC-0@Local\", \"CC-1@Local\"]\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/raw_events",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"raw_events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\":\"{{authToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/status",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\": \"{{authToken}}\",\r\n    \"discover_fields\": false,\r\n    \"end_time\": \"2018-11-12T23:00:00.000Z\",\r\n    \"summary_fields\": [\"Event Time\", \"Device\", \"Logger\", \"Raw Message\", \"deviceVendor\", \"deviceProduct\", \"deviceVersion\", \"deviceEventClassId\", \"name\"],\r\n    \"field_summary\": false, \r\n    \"local_search\": true,\r\n    \"query\":\"\",\r\n    \"search_type\":\"interactive\",\r\n    \"start_time\":\"2018-11-12T00:00:00.000Z\",\r\n    \"timeout\": 120000\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stop",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_session_id\": 100003,\r\n    \"user_session_id\":\"{{authToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/server/search/stop",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"server",
+								"search",
+								"stop"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4edfd0a5-29d1-4c57-8fd8-949e88999abc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5994c7a6-b379-4a85-a20c-2140fc0c5d02",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3a39f5ba-5b29-4c55-a001-0cd1354ffe28",
+			"key": "hostname",
+			"value": "HOSTNAME",
+			"type": "string"
+		},
+		{
+			"id": "63dc6c0f-09f9-4672-b5e1-4993f2d8b854",
+			"key": "port",
+			"value": "9000",
+			"type": "string"
+		},
+		{
+			"id": "709dba51-1f25-46ca-8c29-441f685d58b4",
+			"key": "username",
+			"value": "USERNAME",
+			"type": "string"
+		},
+		{
+			"id": "a111a597-2a10-42bd-9637-ba097061e45e",
+			"key": "password",
+			"value": "PASSWORD",
+			"type": "string"
+		}
+	]
+}
